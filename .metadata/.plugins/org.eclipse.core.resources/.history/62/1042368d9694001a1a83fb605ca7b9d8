@@ -1,0 +1,91 @@
+package com.capgemini.payment.wallet.model;
+
+import java.math.BigInteger;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="dthbilling")
+public class BillPayment {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="dthBillId")
+	int dthBillId;
+	
+	 @Column(name="walletAccountId")
+	 private int walletAccountId;
+
+	public int getWalletAccountId() {
+		return walletAccountId;
+	}
+
+	public void setWalletAccountId(int walletAccountId) {
+		this.walletAccountId = walletAccountId;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public BillPayment(int dthBillId, int walletAccountId, String customerName, BigInteger customerPhno, int amountPay,
+			int noOfSubscribedChannel) {
+		super();
+		this.dthBillId = dthBillId;
+		this.walletAccountId = walletAccountId;
+		this.customerName = customerName;
+		this.customerPhno = customerPhno;
+		this.amountPay = amountPay;
+		this.noOfSubscribedChannel = noOfSubscribedChannel;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public BigInteger getCustomerPhno() {
+		return customerPhno;
+	}
+
+	public void setCustomerPhno(BigInteger customerPhno) {
+		this.customerPhno = customerPhno;
+	}
+
+	public int getAmountPay() {
+		return amountPay;
+	}
+
+	public void setAmountPay(int amountPay) {
+		this.amountPay = amountPay;
+	}
+
+	public int getNoOfSubscribedChannel() {
+		return noOfSubscribedChannel;
+	}
+
+	public void setNoOfSubscribedChannel(int noOfSubscribedChannel) {
+		this.noOfSubscribedChannel = noOfSubscribedChannel;
+	}
+
+	public BillPayment() {
+		super();
+	}
+
+	@Column(name="customerName")
+	 String customerName;
+	 
+	 @Column(name="customerPhno")
+	 private BigInteger customerPhno;
+	 
+	 @Column(name="amountPay")
+	 private int amountPay;
+	 
+	 @Column(name="noOfSubscribedChannel")
+	 int noOfSubscribedChannel;
+
+
+}

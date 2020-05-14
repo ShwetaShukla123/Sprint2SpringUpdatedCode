@@ -1,0 +1,56 @@
+package com.capgemini.payment.wallet.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.capgemini.payment.wallet.model.BillPayment;
+import com.capgemini.payment.wallet.model.WalletAccount;
+import com.capgemini.payment.wallet.repository.IBillRepository;
+import com.capgemini.payment.wallet.repository.WalletAccountRepository;
+
+@Service
+public class BillService implements IBillService{
+	
+	@Autowired
+	IBillRepository billRepository;
+	
+	@Autowired 
+	WalletAccountRepository walletAccountRepository;
+	
+	@Autowired 
+	WalletAccountService walletAccountService;
+	
+	
+	public boolean payDthBill(BillPayment payment)
+	{
+		boolean flag = false;
+		try
+		{
+			int noOfsubscribedChannels = payment.getNoOfSubscribedChannel();
+			payment.setAmountPay(noOfsubscribedChannels*10);
+			billRepository.save(payment);
+			WalletAccount account = walletAccountService.getAccountInfo(payment.getWalletAccountId());
+			double newBalance = account.getAccountBalance() - payment.getAmountPay();
+			account.setAccountBalance(newBalance);
+			walletAccountRepository.save(account);
+			flag = true;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+
+	@Override
+	public List<BillPayment> getAllBillPayment(int customerId) {
+		List<BillPayment> allBill=new ArrayList <BillPayment>();
+		billRepository.findAll().forEach(b ->allBill.add(b));
+		return allBill;
+	}
+
+}

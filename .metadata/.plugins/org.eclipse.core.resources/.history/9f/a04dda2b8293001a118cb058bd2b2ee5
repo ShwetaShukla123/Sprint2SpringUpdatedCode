@@ -1,0 +1,67 @@
+package com.capgemini.payment.wallet.model;
+import java.math.BigInteger;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="bill_details")
+public class BillDetails {
+@Id
+private BigInteger billNo;
+private String holderName;
+private String connectionCode;
+private double billAmount;
+
+
+public BillDetails(BigInteger billNo, String holderName, String connectionCode, double billAmount) {
+	super();
+	this.billNo = billNo;
+	this.holderName = holderName;
+	this.connectionCode = connectionCode;
+	this.billAmount = billAmount;
+}
+
+
+public BigInteger getBillNo() {
+	return billNo;
+}
+
+
+public void setBillNo(BigInteger billNo) {
+	this.billNo = billNo;
+}
+
+
+public String getHolderName() {
+	return holderName;
+}
+
+
+public void setHolderName(String holderName) {
+	this.holderName = holderName;
+}
+
+
+public String getConnectionCode() {
+	return connectionCode;
+}
+
+
+public void setConnectionCode(String connectionCode) {
+	this.connectionCode = connectionCode;
+}
+
+
+public double getBillAmount() {
+	return billAmount;
+}
+
+
+public void setBillAmount(double billAmount) {
+	this.billAmount = billAmount;
+}
+
+public BillDetails() {}
+}

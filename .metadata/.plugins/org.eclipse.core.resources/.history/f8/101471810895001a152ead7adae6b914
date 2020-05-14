@@ -1,0 +1,80 @@
+package com.capgemini.payment.wallet.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.capgemini.payment.wallet.model.WalletAccount;
+import com.capgemini.payment.wallet.repository.WalletAccountRepository;
+
+@Service
+public class WalletAccountServiceImpl implements WalletAccountService{
+	
+	@Autowired 
+	WalletAccountRepository walletAccountRepository;
+	
+	@Override
+	public WalletAccount createWalletAccount(WalletAccount account) {
+		WalletAccount wa = null;
+		try {
+			wa = walletAccountRepository.save(account);
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return wa;
+	}
+
+	@Override
+	public double getBalance(int accountId) {
+		double balance = 0;
+		try {
+			balance = walletAccountRepository.findById(accountId).get().getAccountBalance();
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return balance;
+	}
+
+	@Override
+	public WalletAccount getAccountInfo(int accountId) {
+		WalletAccount accountDetails = null;
+		try {
+			accountDetails = walletAccountRepository.findById(accountId).get();
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return accountDetails;
+	}
+
+	@Override
+	public double updateBalance(WalletAccount account) {
+		double totalBalance = 0;
+		try {
+			walletAccountRepository.save(account);
+			totalBalance = this.getBalance(account.getAccountId());
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return totalBalance;
+	}
+
+	@Override
+	public void payElectricityBill(int walletId, Double billAmount) {
+		try {
+			double balance = this.getBalance(walletId);
+			double newBal = balance - billAmount;
+			System.out.println(newBal);
+			WalletAccount account = this.getAccountInfo(walletId);
+			account.setAccountBalance(newBal);
+			walletAccountRepository.save(account);
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+}

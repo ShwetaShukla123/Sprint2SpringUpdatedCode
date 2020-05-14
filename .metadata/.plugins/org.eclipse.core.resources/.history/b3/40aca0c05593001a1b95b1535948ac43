@@ -1,0 +1,17 @@
+package com.capgemini.payment.wallet.service;
+
+import java.math.BigInteger;
+import java.util.List;
+
+import com.capgemini.payment.wallet.model.BillDetails;
+
+
+public interface IBillDetailsService {
+	
+
+public BillDetails viewBillAccount(BigInteger billNumber);
+public List<BillDetails> viewAllBillAccounts();
+//public boolean deleteBillAccount(BigInteger billNumber);
+public void save(BillDetails billdetails);
+
+}

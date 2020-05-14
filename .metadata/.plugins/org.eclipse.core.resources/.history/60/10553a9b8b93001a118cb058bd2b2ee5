@@ -1,0 +1,61 @@
+package com.capgemini.payment.wallet.service;
+
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.capgemini.payment.wallet.model.BillDetails;
+import com.capgemini.payment.wallet.repository.IBillDetailsRepository;
+
+@Service 
+public class BillDetailsService implements IBillDetailsService{
+@Autowired
+IBillDetailsRepository billDetailsRepository;
+
+@Override
+public BillDetails viewBillAccount(BigInteger billNumber) {
+	BillDetails accountDetails=null;
+	try {
+			System.out.println("see the details"+billDetailsRepository.existsById(billNumber));
+			accountDetails=billDetailsRepository.findById(billNumber).get();
+		}
+	catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+	return accountDetails;
+}
+
+@Override
+public List<BillDetails> viewAllBillAccounts() {
+	List<BillDetails> allAccountDetails=new ArrayList<BillDetails>();
+	try {
+			allAccountDetails=billDetailsRepository.findAll();
+		}
+	catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+	return allAccountDetails;
+} 
+
+
+@Override
+public void save(BillDetails billdetails) {
+	try {
+	billDetailsRepository.save(billdetails);
+	}
+	catch(Exception e) 
+	{
+		e.printStackTrace();
+	}
+	System.out.println("dev");
+
+	
+}
+
+
+}

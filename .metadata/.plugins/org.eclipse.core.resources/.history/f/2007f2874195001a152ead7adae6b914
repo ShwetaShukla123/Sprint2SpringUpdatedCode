@@ -1,0 +1,23 @@
+package com.capgemini.payment.wallet.repository;
+
+import java.math.BigInteger;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+//import org.springframework.data.jpa.repository.Modifying;
+//import org.springframework.data.jpa.repository.Query;
+
+import com.capgemini.payment.wallet.model.Bank;
+
+@Repository("bankRepository")
+public interface BankRepository extends JpaRepository<Bank, BigInteger>{
+	
+//	@Transactional //defines the scope of single database transaction
+//	@Modifying // used to enhance the @Query annotation to execute not only SELECT queries but also INSERT, UPDATE, DELETE
+//	@Query("delete from bank b where b.accountNo=?1") //executes SQL query
+//	public boolean deleteAccountByNo(BigInteger id);
+//	
+//	@Query("select b from bank b where b.accountNo=?1")
+//	public List<Bank>getAccountDetails(BigInteger id);
+//	
+}
